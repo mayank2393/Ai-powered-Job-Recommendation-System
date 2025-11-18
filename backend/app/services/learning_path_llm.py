@@ -16,7 +16,7 @@ def get_gemini_llm():
     # NOTE: changed from "gemini-1.5-flash" → "gemini-pro"
     # to avoid 404 on older v1beta APIs
     llm = ChatGoogleGenerativeAI(
-        model="gemini-pro",
+        model="gemini-2.5-flash",
         google_api_key=api_key,
         temperature=0.4,
     )

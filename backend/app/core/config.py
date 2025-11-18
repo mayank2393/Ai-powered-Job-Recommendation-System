@@ -24,7 +24,7 @@ class Settings:
     def __init__(self):
         # Keys from .env
         self.GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-
+        self.MONGO_URI = os.getenv("MONGO_URI")
         # Data paths
         self.DATA_DIR = _env("DATA_DIR", str(BASE_DIR / "data"))
         self.SKILLS_FILE = _env("SKILLS_FILE", "skills_master.json")
