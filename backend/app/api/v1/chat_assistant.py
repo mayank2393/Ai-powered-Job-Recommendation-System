@@ -1,3 +1,4 @@
+# backend/app/api/v1/chat_assistant.py
 from typing import Optional, List, Dict, Any
 
 from fastapi import APIRouter
@@ -7,23 +8,6 @@ from app.services.rag_assistant import chat_career_assistant
 
 router = APIRouter(prefix="/chat", tags=["Career Chat Assistant"])
 
-
-# ---------- Pydantic Models for JSON Answer ----------
-
-class CareerOption(BaseModel):
-    role: str
-    core_skills: List[str]
-    why_suitable: str
-    next_steps: List[str]
-
-
-class AnswerJSON(BaseModel):
-    answer_summary: str
-    career_options: List[CareerOption] = []
-    guidance: List[str] = []
-
-
-# ---------- Request / Response Models ----------
 
 class ChatRequest(BaseModel):
     message: str
@@ -39,7 +23,7 @@ class ChatRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     session_id: str
-    answer: AnswerJSON
+    answer: str                # plain text answer now
     used_top_k: int
     learning_path: Optional[Dict[str, Any]] = None
 
@@ -58,7 +42,7 @@ def chat(req: ChatRequest):
 
     return ChatResponse(
         session_id=result["session_id"],
-        answer=result["answer_json"],
+        answer=result["answer"],
         used_top_k=result["used_top_k"],
         learning_path=result["learning_path"],
     )
